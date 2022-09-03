@@ -1,5 +1,5 @@
-#ifndef SERVO
-#define SERVO
+#ifndef DYNAMIXEL
+#define DYNAMIXEL
 
 #include <entities.h>
 #include <Arduino.h>
@@ -7,7 +7,10 @@
 
 class DynamixelActuador: public DynamixelClass, public Actuator {
 public:
-    DynamixelActuador::DynamixelActuador(uint8_t _ID, String _Reference): DynamixelClass(),Actuator(_ID, _Reference){};
+    DynamixelActuador(uint8_t id, String reference): DynamixelClass(), Actuator(id, reference){};
+    void execute(int speed){
+        this->turn(this->getId(), (speed > 0), speed);
+    };
 };
 
 #endif

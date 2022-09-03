@@ -1,46 +1,50 @@
 #ifndef ENTITIES
 #define ENTITIES
 
+#include <stdint.h>
+#include <Arduino.h>
+
 class Device {
     private:
-        uint8_t ID;
-        String Reference;
+        uint8_t id;
+        String reference;
     public:
-        Device::Device(uint8_t _ID, String _Reference){
-            uint8_t ID = _ID;
-            String Reference = _Reference;
-        }
-        void ShowID();
-        void ShowReference();
+        Device(uint8_t,String);
+        uint8_t getId();
+        String getReference();
 };
-void Device::ShowID(){
-    printf("ID: ",ID);
+Device::Device(uint8_t id, String reference){
+    this->id = id;
+    this->reference = reference;
 }
-void Device::ShowReference(){
-    printf("Reference: ",Reference);
+uint8_t Device::getId(){
+    return this->id;
+}
+String Device::getReference(){
+    return this->reference;
 }
 
 class Sensor : public Device {
     private:
-        String Variable;
+        String variable;
     protected:
-        float Measure;
+        double measure;
     public:
-        Sensor::Sensor(uint8_t _ID, String _Reference, String _Variable): Device(_ID, _Reference){
-            String Variable = _Variable;
-        }
-        virtual float getMeasure();
+        Sensor(uint8_t id, String reference, String variable): Device(id, reference){
+            this->variable = variable;
+        };
+        virtual double getMeasure();
         String getVariable();
 };
 
 String Sensor::getVariable(){
-    return Variable;
+    return this->variable;
 };
 
 class Actuator : public Device {
     public:
-        Actuator::Actuator(uint8_t _ID, String _Reference): Device(_ID, _Reference){}
-        virtual float getOutput();
+        Actuator(uint8_t id, String reference): Device(id, reference){};
+        virtual void execute(int speed);
 };
 
 #endif
