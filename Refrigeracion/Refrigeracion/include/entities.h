@@ -16,13 +16,13 @@ class Device {
 Device::Device(uint8_t id, String reference){
     this->id = id;
     this->reference = reference;
-}
+};
 uint8_t Device::getId(){
     return this->id;
-}
+};
 String Device::getReference(){
     return this->reference;
-}
+};
 
 class Sensor : public Device {
     private:
@@ -34,6 +34,7 @@ class Sensor : public Device {
             this->variable = variable;
         };
         virtual double getMeasure();
+        virtual ~Sensor(){};
         String getVariable();
 };
 
@@ -45,6 +46,7 @@ class Actuator : public Device {
     public:
         Actuator(uint8_t id, String reference): Device(id, reference){};
         virtual void execute(int speed);
+        virtual ~Actuator(){};
 };
 
 #endif
