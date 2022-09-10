@@ -19,5 +19,6 @@ double BMP180::getMeasure(){
         status = this->getTemperature(measure); //Obtener la temperatura
         return measure;
     }
+}
 
 #endif
